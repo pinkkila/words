@@ -1,17 +1,10 @@
 import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Home Page</Text>
-      <Link href="/settings">Got to Settings</Link>
+    <View className="m-auto">
+      <Link href="/settings" className="text-2xl border-2 border-black p-4 rounded-md"  >Got to Settings</Link>
     </View>
   );
 }
