@@ -1,9 +1,16 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
+import { router } from 'expo-router';
 
 export default function Index() {
+
+  const navigateGame = () => {
+    router.push("/game")
+  }
+  
   return (
     <View style={styles.mainView}>
-      <Text style={styles.test}>dark mode is on</Text>
+      <Text style={styles.text}>dark mode is on</Text>
+      <Button title="Strart learning" onPress={navigateGame} />
     </View>
   );
 }
@@ -14,7 +21,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  test: {
+  text: {
     fontSize: 16,
     lineHeight: 24,
     fontWeight: "600",
