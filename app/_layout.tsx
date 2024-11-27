@@ -16,7 +16,6 @@ export default function RootLayout() {
         <Stack.Screen name="game" options={{ headerTitle: "" }} />
         <Stack.Screen name="settings/index" options={{ headerTitle: "Settings" }} />
         <Stack.Screen name="settings/words" options={{ headerTitle: "Your Words" }} />
-        <Stack.Screen name="settings/import" options={{ headerTitle: "Import" }} />
       </Stack>
     </ThemeProvider>
   );

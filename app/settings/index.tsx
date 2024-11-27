@@ -8,9 +8,7 @@ export default function Index() {
     router.push("/settings/words");
   };
 
-  const pickCsv = async () => {
-    // router.push("/settings/import");
-
+  const importCsv = async () => {
     try {
       const docRes = await DocumentPicker.getDocumentAsync();
 
@@ -26,7 +24,6 @@ export default function Index() {
       });
 
       console.log(fileData);
-
     } catch (error) {
       console.log("Error while selecting file: ", error);
     }
@@ -37,7 +34,7 @@ export default function Index() {
       <Pressable style={styles.pressBtn} onPress={navigateWords}>
         <Text style={styles.text}>Your Words</Text>
       </Pressable>
-      <Pressable style={styles.pressBtn} onPress={pickCsv}>
+      <Pressable style={styles.pressBtn} onPress={importCsv}>
         <Text style={styles.text}>Import</Text>
       </Pressable>
     </View>
