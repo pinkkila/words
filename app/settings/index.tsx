@@ -1,22 +1,21 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { router } from "expo-router";
-import { SymbolView } from "expo-symbols";
 
 export default function Index() {
-  const navigateGame = () => {
-    router.push("/game");
+  const navigateWords = () => {
+    router.push("/settings/words");
   };
-  const navigateSettings = () => {
-    router.push("/settings");
+  const navigateImport = () => {
+    router.push("/settings/import");
   };
 
   return (
     <View style={styles.mainView}>
-      <Pressable style={styles.pressSymbol} onPress={navigateSettings}>
-        <SymbolView name="gear" style={styles.symbol} type="multicolor" />
+      <Pressable style={styles.pressBtn} onPress={navigateWords}>
+        <Text style={styles.text}>Your Words</Text>
       </Pressable>
-      <Pressable style={styles.pressBtn} onPress={navigateGame}>
-        <Text style={styles.text}>Start</Text>
+      <Pressable style={styles.pressBtn} onPress={navigateImport}>
+        <Text style={styles.text}>Import</Text>
       </Pressable>
     </View>
   );
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
   },
   pressBtn: {
     borderRadius: 20,
+    margin: 30,
     padding: 20,
     height: 80,
     width: 200,
@@ -45,10 +45,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     color: "white",
-  },
-  symbol: {
-    width: 60,
-    height: 60,
-    margin: 5,
-  },
+  }
 });
