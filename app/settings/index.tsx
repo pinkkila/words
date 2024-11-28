@@ -14,8 +14,7 @@ export default function Index() {
   const saveToDb = async (english: string, finnish: string) => {
     try {
       await db.runAsync(
-        `
-        INSERT INTO word (english, finnish, correct, wrong) VALUES (?, ?, ?, ?)`,
+        `INSERT INTO word (english, finnish, correct, wrong) VALUES (?, ?, ?, ?)`,
         english,
         finnish,
         0,

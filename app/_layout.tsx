@@ -6,7 +6,7 @@ import {
 import { Stack } from "expo-router";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SQLiteProvider } from "expo-sqlite";
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

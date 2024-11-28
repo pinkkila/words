@@ -15,7 +15,7 @@ export default function Words() {
   const [words, setWords] = useState<null | TWord[]>([]);
 
   useEffect(() => {
-    getWordsFromDb()
+    getWordsFromDb();
   }, []);
 
   const getWordsFromDb = async () => {
@@ -29,25 +29,30 @@ export default function Words() {
 
   const handleDelete = async (id: number) => {
     try {
-      await db.runAsync('DELETE FROM word WHERE id=?', id);
+      await db.runAsync("DELETE FROM word WHERE id=?", id);
       await getWordsFromDb();
+    } catch (error) {
+      console.error("Fail when deleting word", error);
     }
-    catch (error) {
-      console.error('Fail when deleting word', error);
-    }
-  }
+  };
 
   return (
     <View style={styles.mainView}>
       <Text style={styles.text}>Words</Text>
       <FlatList
-        keyExtractor={item => item.id.toString()}
-        renderItem={({ item }) =>
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text style={styles.text}>{item.english}</Text>
-            <Text style={styles.text} >{item.finnish} </Text>
-            <Text style={{ color: '#0000ff' }} onPress={() => handleDelete(item.id)}>Delete</Text>
-          </View>}
+            <Text style={styles.text}>{item.finnish} </Text>
+            <Text
+              style={{ color: "#0000ff" }}
+              onPress={() => handleDelete(item.id)}
+            >
+              Delete
+            </Text>
+          </View>
+        )}
         data={words}
       />
     </View>
