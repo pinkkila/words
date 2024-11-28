@@ -1,10 +1,8 @@
+import { useWords } from "@/hooks/useWords";
 import { Text, View, StyleSheet } from "react-native";
-import { useSQLiteContext } from "expo-sqlite";
-import { useEffect, useState } from "react";
-
 
 export default function Game() {
-  
+  const {words} = useWords();
 
   return (
     <View style={styles.mainView}>

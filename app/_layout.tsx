@@ -5,7 +5,7 @@ import {
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import WordsContextProvider from "@/contexts/words-context";
+import WordsContextProvider from "@/contexts/WordsContexProvider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

@@ -1,4 +1,4 @@
-import { WordsContext } from "@/contexts/words-context";
+import { WordsContext } from "@/contexts/WordsContexProvider";
 import { useContext } from "react";
 
 export function useWords() {
