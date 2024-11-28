@@ -1,6 +1,11 @@
 import { Text, View, StyleSheet } from "react-native";
+import { useSQLiteContext } from "expo-sqlite";
+import { useEffect, useState } from "react";
+
 
 export default function Game() {
+  
+
   return (
     <View style={styles.mainView}>
       <Text style={styles.test}>Game</Text>
