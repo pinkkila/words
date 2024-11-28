@@ -1,7 +1,5 @@
-import { SQLiteProvider } from "expo-sqlite";
 import * as SQLite from "expo-sqlite";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { useSQLiteContext } from "expo-sqlite";
 
 type TWord = {
   id: number;
@@ -20,17 +18,23 @@ type WordsContext = {
 export const WordsContext = createContext<WordsContext | null>(null);
 
 export default function WordsContextProvider({ children }: {children: ReactNode}) {
-  const initialize = async (db: SQLite.SQLiteDatabase) => {
-    db.runAsync(`
-      CREATE TABLE IF NOT EXISTS word (id INTEGER PRIMARY KEY NOT NULL, english TEXT NOT NULL, finnish TEXT NOT NULL, correct INTEGER NOT NULL, wrong INTEGER NOT NULL);
-      `);
-  };
-  const db = useSQLiteContext();
+  const db = SQLite.openDatabaseSync('wordgame.db');
   const [words, setWords] = useState<null | TWord[]>([]);
 
   useEffect(() => {
-    getWordsFromDb();
+    initialize()
   }, []);
+
+  const initialize = async () => {
+    try {
+      await db.execAsync(`
+        CREATE TABLE IF NOT EXISTS word (id INTEGER PRIMARY KEY NOT NULL, english TEXT NOT NULL, finnish TEXT NOT NULL, correct INTEGER NOT NULL, wrong INTEGER NOT NULL);
+      `);
+      await getWordsFromDb();
+    } catch (error) {
+      console.error('Could not initialize database', error);
+    }
+  }
 
   const getWordsFromDb = async () => {
     try {
@@ -50,6 +54,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
         0,
         0
       );
+      await getWordsFromDb();
     } catch (error) {
       console.error("Fail when saving word", error);
     }
@@ -65,15 +70,9 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
   };
 
   return (
-    <SQLiteProvider
-      databaseName="wordgame.db"
-      onInit={initialize}
-      onError={(error) => console.error("Could not open database", error)}
-    >
       <WordsContext.Provider value={{words, saveToDb, handleDelete}}>
         {children}
       </WordsContext.Provider>
-    </SQLiteProvider>
   );
 }
 

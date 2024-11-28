@@ -2,27 +2,13 @@ import { View, StyleSheet, Pressable, Text } from "react-native";
 import { router } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
-import { useSQLiteContext } from "expo-sqlite";
+import { useWords } from "@/hooks/useWords";
 
 export default function Index() {
-  const db = useSQLiteContext();
+  const {saveToDb} = useWords();
 
   const navigateWords = () => {
     router.push("/settings/words");
-  };
-
-  const saveToDb = async (english: string, finnish: string) => {
-    try {
-      await db.runAsync(
-        `INSERT INTO word (english, finnish, correct, wrong) VALUES (?, ?, ?, ?)`,
-        english,
-        finnish,
-        0,
-        0
-      );
-    } catch (error) {
-      console.error("Fail when saving word", error);
-    }
   };
 
   const importCsv = async () => {
@@ -41,7 +27,7 @@ export default function Index() {
       const rows = fileData.split("\n").map((row) => row.split(",").slice(-2));
       rows.forEach((row) => saveToDb(row[0], row[1]));
     } catch (error) {
-      console.log("Error while selecting file: ", error);
+      console.error("Error while selecting file: ", error);
     }
   };
 

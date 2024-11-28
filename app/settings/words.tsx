@@ -1,40 +1,8 @@
 import { Text, View, StyleSheet, FlatList } from "react-native";
-import { useSQLiteContext } from "expo-sqlite";
-import { useEffect, useState } from "react";
-
-type TWord = {
-  id: number;
-  english: string;
-  finnish: string;
-  correct: number;
-  wrong: number;
-};
+import { useWords } from "@/hooks/useWords";
 
 export default function Words() {
-  const db = useSQLiteContext();
-  const [words, setWords] = useState<null | TWord[]>([]);
-
-  useEffect(() => {
-    getWordsFromDb();
-  }, []);
-
-  const getWordsFromDb = async () => {
-    try {
-      const wordsFormDb = await db.getAllAsync<TWord>("SELECT * from word;");
-      setWords(wordsFormDb);
-    } catch (error) {
-      console.error("Fail when getting words from db");
-    }
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      await db.runAsync("DELETE FROM word WHERE id=?", id);
-      await getWordsFromDb();
-    } catch (error) {
-      console.error("Fail when deleting word", error);
-    }
-  };
+  const {words, handleDelete } = useWords();
 
   return (
     <View style={styles.mainView}>

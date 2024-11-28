@@ -1,7 +1,7 @@
 import { WordsContext } from "@/contexts/words-context";
 import { useContext } from "react";
 
-export function useItemsContext() {
+export function useWords() {
   const contexts = useContext(WordsContext);
 
   if (!contexts) {
