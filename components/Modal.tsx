@@ -2,9 +2,7 @@ import {
   Modal as RNModal,
   ModalProps,
   KeyboardAvoidingView,
-  View,
   StyleSheet,
-  Platform,
 } from "react-native";
 
 type Props = ModalProps & {
