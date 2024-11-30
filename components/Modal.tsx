@@ -11,14 +11,13 @@ type Props = ModalProps & {
   isOpen: boolean;
 };
 
-export const Modal = ({ isOpen, children, ...rest }: Props) => {
+export const Modal = ({ isOpen, children }: Props) => {
   return (
     <RNModal
       visible={isOpen}
       transparent
       animationType="fade"
       statusBarTranslucent
-      {...rest}
     >
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         {children}
