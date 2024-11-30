@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet, FlatList } from "react-native";
+import { Text, View, StyleSheet, FlatList, Pressable } from "react-native";
 import { useWords } from "@/hooks/useWords";
+import { SymbolView } from "expo-symbols";
 
 export default function Words() {
   const { words, handleDelete } = useWords();
@@ -28,12 +29,13 @@ export default function Words() {
                 Update
               </Text>
 
-              <Text
-                style={styles.deleteText}
-                onPress={() => handleDelete(item.id)}
-              >
-                Delete
-              </Text>
+              <Pressable style={styles.deleteSymbolPosition} onPress={() => handleDelete(item.id)}>
+                <SymbolView
+                  name="trash"
+                  style={styles.deleteSymbol}
+                  type="multicolor"
+                />
+              </Pressable>
             </View>
           </View>
         )}
@@ -50,8 +52,8 @@ const styles = StyleSheet.create({
   },
 
   itemContainer: {
-    flexDirection: "column", 
-    backgroundColor: "#fff", 
+    flexDirection: "column",
+    backgroundColor: "#fff",
     borderRadius: 8,
     padding: 15,
     marginVertical: 8,
@@ -76,6 +78,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
+  deleteSymbolPosition: {
+    alignSelf: "flex-end",
+  },
+
   wordText: {
     fontSize: 24,
     fontWeight: "600",
@@ -92,10 +98,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: "flex-end",
   },
-  deleteText: {
-    color: "#ff4d4d",
-    fontWeight: "bold",
-    marginTop: 10,
-    alignSelf: "flex-end",
-  },
+  deleteSymbol: {
+    width: 33,
+    height: 33,
+  }
 });
