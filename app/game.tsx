@@ -16,22 +16,17 @@ export default function Game() {
     if (!words || words.length < howMany) {
       throw new Error(`The words must have at least ${howMany} words`);
     }
-
     const indexes: Set<number> = new Set();
-
     while (indexes.size < howMany) {
       const randomIndex = Math.floor(Math.random() * words.length);
       indexes.add(randomIndex);
     }
-
     return Array.from(indexes);
   };
 
   const prepareOneRound = () => {
     if (!words) return;
-
     const randomIndexes = getRandomIndexes(3);
-
     setCorrectWord(
       words[randomIndexes[Math.floor(Math.random() * randomIndexes.length)]]
     );
@@ -46,7 +41,6 @@ export default function Game() {
       console.log("wrong");
       handleCorrectOrWrong(pressedWord.id, -1);
     }
-
     prepareOneRound()
   };
 
@@ -77,7 +71,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: 16,
+    fontSize: 20,
     lineHeight: 24,
     fontWeight: "600",
     color: "white",
