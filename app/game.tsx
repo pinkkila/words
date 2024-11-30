@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 
 export default function Game() {
-  const { words } = useWords();
+  const { words, handleCorrectOrWrong } = useWords();
   const [ownWordsPlay, setOwnWordsPlay] = useState<TWord[] | null>([]);
   const [correctWord, setCorrectWord] = useState<TWord | null>(null);
 
@@ -41,15 +41,13 @@ export default function Game() {
   const checkIfCorrect = (pressedWord: TWord) => {
     if (pressedWord.english === correctWord?.english) {
       console.log("correct");
+      handleCorrectOrWrong(pressedWord.id, 1);
     } else {
       console.log("wrong");
+      handleCorrectOrWrong(pressedWord.id, -1);
     }
 
-    // tee contextissa funktiot muokata correct ja wrong ja syötä tässä
-    // prepareOneRound()
-    // animoi nappulat painalluksen mukaan
-
-
+    prepareOneRound()
   };
 
   return (

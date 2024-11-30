@@ -13,6 +13,8 @@ export default function Words() {
           <View style={styles.itemContainer}>
             <Text style={styles.text}>{item.english}</Text>
             <Text style={styles.text}>{item.finnish} </Text>
+            <Text style={styles.text}>{item.correct} </Text>
+            <Text style={styles.text}>{item.wrong} </Text>
             <Text
               style={{ color: "#0000ff" }}
               onPress={() => handleDelete(item.id)}

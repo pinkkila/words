@@ -6,6 +6,7 @@ type WordsContext = {
   words: TWord[] | null;
   saveToDb: (english: string, finnish: string) => void;
   handleDelete: (id: number) => void; 
+  handleCorrectOrWrong: (id: number, delta: number) => void;
 }
 
 export const WordsContext = createContext<WordsContext | null>(null);
@@ -62,8 +63,29 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
     }
   };
 
+  const handleCorrectOrWrong = async (id: number, delta: number) => {
+    if (delta === 1) {
+      try {
+        await db.runAsync("UPDATE word SET correct = correct + 1 WHERE id = ?", id )
+      } catch (error) {
+        console.error("Fail when updating word's correct field")
+      }
+    }
+
+    if (delta === -1) {
+      try {
+        await db.runAsync("UPDATE word SET wrong = wrong + 1 WHERE id = ?", id)
+      } catch (error) {
+        console.error("Fail when updating word's wrong field")
+      }
+    }
+
+    await getWordsFromDb()
+
+  }
+
   return (
-      <WordsContext.Provider value={{words, saveToDb, handleDelete}}>
+      <WordsContext.Provider value={{words, saveToDb, handleDelete, handleCorrectOrWrong}}>
         {children}
       </WordsContext.Provider>
   );
