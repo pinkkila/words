@@ -39,6 +39,7 @@ export default function EditWord({ setModalOpen, word }: EditWordProps) {
   const handleSaveChanges = () => {
     if (editedWord) {
       handleEditWord(editedWord);
+      setModalOpen(false)
     } else {
       console.error("Fail when saving edited word.");
     }
@@ -59,14 +60,14 @@ export default function EditWord({ setModalOpen, word }: EditWordProps) {
         value={editedWord?.finnish}
         onChangeText={handleChangeFinnish}
       />
-      <Pressable onPress={handleResetCorrectAndWrong}>
-        <Text>Reset correct and wrong</Text>
+      <Pressable style={styles.btnReset} onPress={handleResetCorrectAndWrong}>
+        <Text style={styles.buttonText}>Reset correct and wrong</Text>
       </Pressable>
-      <Pressable onPress={handleSaveChanges}>
-        <Text>Save Changes</Text>
+      <Pressable style={styles.btnSave} onPress={handleSaveChanges}>
+        <Text style={styles.buttonText} >Save Changes</Text>
       </Pressable>
-      <Pressable onPress={() => setModalOpen(false)}>
-        <Text>Cancel</Text>
+      <Pressable style={styles.btnCancel} onPress={() => setModalOpen(false)}>
+        <Text style={styles.buttonText} >Cancel</Text>
       </Pressable>
     </View>
   );
@@ -91,7 +92,32 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 5,
     padding: 8,
-    marginBottom: 12,
+    marginBottom: 14,
     fontSize: 16,
+  },
+  btnReset: {
+    backgroundColor: "orange",
+    padding: 12,
+    borderRadius: 5,
+    alignItems: "center",
+    marginBottom: 14,
+  },
+  btnSave: {
+    backgroundColor: "green",
+    padding: 12,
+    borderRadius: 5,
+    alignItems: "center",
+    marginBottom: 14,
+  },
+  btnCancel: {
+    backgroundColor: "#007bff",
+    padding: 12,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
