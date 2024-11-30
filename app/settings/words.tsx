@@ -10,6 +10,7 @@ import { useWords } from "@/hooks/useWords";
 import { SymbolView } from "expo-symbols";
 import { Modal } from "@/components/Modal";
 import { useState } from "react";
+import EditWord from "@/components/EditWord";
 
 export default function Words() {
   const { words, handleDelete } = useWords();
@@ -60,17 +61,7 @@ export default function Words() {
         data={words}
       />
       <Modal isOpen={modalOpen} withInput>
-        <View style={styles.modal}>
-          <Text>Modal</Text>
-          <TextInput
-            placeholder="Enter some text"
-            onChangeText={(text) => setText(text)}
-            value={text}
-          />
-          <Pressable onPress={() => setModalOpen(false)}>
-            <Text>Save changes</Text>
-          </Pressable>
-        </View>
+        <EditWord setModalOpen={setModalOpen} />
       </Modal>
     </View>
   );
