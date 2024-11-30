@@ -1,8 +1,11 @@
 import { View, StyleSheet, Pressable, Text } from "react-native";
 import { router } from "expo-router";
 import { SymbolView } from "expo-symbols";
+import { useWords } from "@/hooks/useWords";
 
 export default function Index() {
+  const { words } = useWords();
+
   const navigateGame = () => {
     router.push("/game");
   };
@@ -15,9 +18,17 @@ export default function Index() {
       <Pressable style={styles.pressSymbol} onPress={navigateSettings}>
         <SymbolView name="gear" style={styles.symbol} type="multicolor" />
       </Pressable>
-      <Pressable style={styles.pressBtn} onPress={navigateGame}>
-        <Text style={styles.text}>Start</Text>
-      </Pressable>
+      {!words || words.length < 4 ? (
+        <Text style={styles.text}>You don't have enough words. Please import some words.</Text>
+      ) : (
+        <Pressable
+          style={styles.pressBtn}
+          onPress={navigateGame}
+          disabled={!words}
+        >
+          <Text style={styles.text}>Start</Text>
+        </Pressable>
+      )}
     </View>
   );
 }

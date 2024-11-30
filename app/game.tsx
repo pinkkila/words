@@ -6,7 +6,6 @@ import {
   View,
   StyleSheet,
   Pressable,
-  ActivityIndicator,
 } from "react-native";
 
 export default function Game() {
@@ -34,8 +33,8 @@ export default function Game() {
 
   const prepareOneRound = () => {
     if (!words) return;
-    setShowFeedback(false)
-    setSelectedWordId(null)
+    setShowFeedback(false);
+    setSelectedWordId(null);
     const randomIndexes = getRandomIndexes(3);
     setCorrectWord(
       words[randomIndexes[Math.floor(Math.random() * randomIndexes.length)]]
@@ -43,53 +42,45 @@ export default function Game() {
     setOwnWordsPlay(randomIndexes.map((r) => words[r]));
   };
 
-  const checkIfCorrect = (pressedWord: TWord) => {
+  const checkIfCorrect = (id: number) => {
     setShowFeedback(true);
-    setSelectedWordId(pressedWord.id)
-    if (pressedWord.english === correctWord?.english) {
-      console.log("correct");
-      handleCorrectOrWrong(pressedWord.id, 1);
+    setSelectedWordId(id);
+    if (id === correctWord?.id) {
+      handleCorrectOrWrong(id, 1);
     } else {
-      console.log("wrong");
-      handleCorrectOrWrong(pressedWord.id, -1);
+      handleCorrectOrWrong(id, -1);
     }
     setTimeout(() => {
       prepareOneRound();
-    }, 1500);
+    }, 1000);
   };
 
   const getBtnStyle = (id: number) => {
-    if (!showFeedback) return styles.basicBtn;
+    if (!showFeedback) 
+      return styles.basicBtn;
 
     if (id === correctWord?.id) 
-      return styles.correct
+      return styles.correct;
 
     if (id === selectedWordId && selectedWordId !== correctWord?.id)
-      return styles.wrong
+      return styles.wrong;
 
-    return styles.basicBtn
-
-  }
+    return styles.basicBtn;
+  };
 
   return (
     <View style={styles.container}>
-      {!ownWordsPlay || ownWordsPlay.length === 0 ? (
-        <ActivityIndicator size="large" color="#00ff00" />
-      ) : (
-        <>
-          <Text style={styles.textBig}>{correctWord?.english}</Text>
-          {ownWordsPlay.map((word) => (
-            <Pressable
-              key={word.id}
-              style={() => getBtnStyle(word.id)}
-              onPress={() => checkIfCorrect(word)}
-              disabled={showFeedback}
-            >
-              <Text style={styles.text}>{word.finnish}</Text>
-            </Pressable>
-          ))}
-        </>
-      )}
+      <Text style={styles.textBig}>{correctWord?.english}</Text>
+      {ownWordsPlay?.map((word) => (
+        <Pressable
+          key={word.id}
+          style={() => getBtnStyle(word.id)}
+          onPress={() => checkIfCorrect(word.id)}
+          disabled={showFeedback}
+        >
+          <Text style={styles.text}>{word.finnish}</Text>
+        </Pressable>
+      ))}
     </View>
   );
 }
@@ -104,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: "600",
     color: "white",
-    marginBottom: 40
+    marginBottom: 40,
   },
   text: {
     fontSize: 20,
