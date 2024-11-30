@@ -13,16 +13,14 @@ export default function Game() {
   }, []);
 
   const getRandomIndexes = (howMany: number) => {
-    const arrayLength = words?.length;
-
-    if (!arrayLength || arrayLength < howMany) {
-      throw new Error(`The array must have at least ${howMany} elements`);
+    if (!words || words.length < howMany) {
+      throw new Error(`The words must have at least ${howMany} words`);
     }
 
     const indexes: Set<number> = new Set();
 
     while (indexes.size < howMany) {
-      const randomIndex = Math.floor(Math.random() * arrayLength);
+      const randomIndex = Math.floor(Math.random() * words.length);
       indexes.add(randomIndex);
     }
 
@@ -46,13 +44,19 @@ export default function Game() {
     } else {
       console.log("wrong");
     }
+
+    // tee contextissa funktiot muokata correct ja wrong ja syötä tässä
+    // prepareOneRound()
+    // animoi nappulat painalluksen mukaan
+
+
   };
 
   return (
     <View style={styles.container}>
       {!ownWordsPlay || ownWordsPlay.length === 0 ? (<Text>Loading...</Text>) : (
         <>
-          <Text style={styles.text}>Game</Text>
+          <Text style={styles.text}>{correctWord?.english}</Text>
           <Pressable style={styles.pressBtn} onPress={() => checkIfCorrect(ownWordsPlay[0])}>
             <Text style={styles.text}>{ownWordsPlay[0].finnish}</Text>
           </Pressable>
