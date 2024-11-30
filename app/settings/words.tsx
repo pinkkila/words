@@ -5,7 +5,7 @@ export default function Words() {
   const {words, handleDelete } = useWords();
 
   return (
-    <View style={styles.mainView}>
+    <View style={styles.container}>
       <Text style={styles.text}>Words</Text>
       <FlatList
         keyExtractor={(item) => item.id.toString()}
@@ -28,7 +28,7 @@ export default function Words() {
 }
 
 const styles = StyleSheet.create({
-  mainView: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",

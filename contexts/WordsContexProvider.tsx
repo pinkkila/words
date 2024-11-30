@@ -1,13 +1,6 @@
+import { TWord } from "@/lib/types";
 import * as SQLite from "expo-sqlite";
 import { createContext, ReactNode, useEffect, useState } from "react";
-
-type TWord = {
-  id: number;
-  english: string;
-  finnish: string;
-  correct: number;
-  wrong: number;
-};
 
 type WordsContext = {
   words: TWord[] | null;

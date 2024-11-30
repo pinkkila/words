@@ -32,7 +32,7 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.mainView}>
+    <View style={styles.container}>
       <Pressable style={styles.pressBtn} onPress={navigateWords}>
         <Text style={styles.text}>Your Words</Text>
       </Pressable>
@@ -44,7 +44,7 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  mainView: {
+  container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
