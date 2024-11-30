@@ -1,4 +1,4 @@
-import { Modal as RNModal, ModalProps, KeyboardAvoidingView, View, StyleSheet }from "react-native"
+import { Modal as RNModal, ModalProps, KeyboardAvoidingView, View, StyleSheet } from "react-native"
 
 type Props = ModalProps & {
   isOpen: boolean;
@@ -24,7 +24,7 @@ export const Modal = ({isOpen, withInput, children, ...rest}: Props) => {
       statusBarTranslucent
       {...rest}
     >
-      {children}
+      {content}
     </RNModal>
   )
 }
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 12,
     paddingRight: 12,
-    backgroundColor: "rgba(24, 24, 27, 0.4)"
+    backgroundColor: "rgba(24, 24, 27, 0.8)"
   }
 });
 
