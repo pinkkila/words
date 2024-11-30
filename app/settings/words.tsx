@@ -4,7 +4,6 @@ import {
   StyleSheet,
   FlatList,
   Pressable,
-  TextInput,
 } from "react-native";
 import { useWords } from "@/hooks/useWords";
 import { SymbolView } from "expo-symbols";
@@ -64,7 +63,7 @@ export default function Words() {
         )}
         data={words}
       />
-      <Modal isOpen={modalOpen} withInput >
+      <Modal isOpen={modalOpen} >
         <EditWord setModalOpen={setModalOpen} word={editWord} />
       </Modal>
     </View>
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-
   itemContainer: {
     flexDirection: "column",
     backgroundColor: "#fff",
@@ -84,29 +82,24 @@ const styles = StyleSheet.create({
     padding: 15,
     marginVertical: 8,
   },
-
   itemHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 8,
   },
-
   itemBottom: {
     marginTop: 5,
     flexDirection: "row",
     justifyContent: "space-between",
   },
-
   itemDetails: {
     marginTop: 5,
     flexDirection: "column",
   },
-
   symbolPosition: {
     alignSelf: "flex-end",
   },
-
   wordText: {
     fontSize: 24,
     fontWeight: "600",
@@ -130,12 +123,5 @@ const styles = StyleSheet.create({
   pencilSymbol: {
     width: 33,
     height: 33,
-  },
-
-  modal: {
-    backgroundColor: "white",
-    width: "100%",
-    position: "absolute",
-    padding: 16,
   },
 });

@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: "80%",
-    position: "absolute",
     padding: 16,
   },
   header: {

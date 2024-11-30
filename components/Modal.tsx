@@ -1,21 +1,17 @@
-import { Modal as RNModal, ModalProps, KeyboardAvoidingView, View, StyleSheet } from "react-native"
+import {
+  Modal as RNModal,
+  ModalProps,
+  KeyboardAvoidingView,
+  View,
+  StyleSheet,
+  Platform,
+} from "react-native";
 
 type Props = ModalProps & {
   isOpen: boolean;
-  withInput?: boolean;
-}
+};
 
-export const Modal = ({isOpen, withInput, children, ...rest}: Props) => {
-  const content = withInput ? (
-    <KeyboardAvoidingView style={styles.container} behavior="padding" >
-    {children}
-    </KeyboardAvoidingView>
-  ) : (
-    <View style={styles.container}>
-      {children}
-    </View>
-  )
-  
+export const Modal = ({ isOpen, children, ...rest }: Props) => {
   return (
     <RNModal
       visible={isOpen}
@@ -24,10 +20,12 @@ export const Modal = ({isOpen, withInput, children, ...rest}: Props) => {
       statusBarTranslucent
       {...rest}
     >
-      {content}
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
+        {children}
+      </KeyboardAvoidingView>
     </RNModal>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -36,7 +34,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 12,
     paddingRight: 12,
-    backgroundColor: "rgba(24, 24, 27, 0.8)"
-  }
+    backgroundColor: "rgba(24, 24, 27, 0.8)",
+  },
 });
-
