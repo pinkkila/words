@@ -7,6 +7,7 @@ type WordsContext = {
   saveToDb: (english: string, finnish: string) => void;
   handleDelete: (id: number) => void; 
   handleCorrectOrWrong: (id: number, delta: number) => void;
+  handleEditWord: (item: TWord ) => void;
 }
 
 export const WordsContext = createContext<WordsContext | null>(null);
@@ -26,7 +27,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
       `);
       await getWordsFromDb();
     } catch (error) {
-      console.error('Could not initialize database', error);
+      console.error('Could not initialize database: ', error);
     }
   }
 
@@ -35,7 +36,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
       const wordsFormDb = await db.getAllAsync<TWord>("SELECT * from word;");
       setWords(wordsFormDb);
     } catch (error) {
-      console.error("Fail when getting words from db");
+      console.error("Fail when getting words from db: ", error);
     }
   };
 
@@ -59,7 +60,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
       await db.runAsync("DELETE FROM word WHERE id=?", id);
       await getWordsFromDb();
     } catch (error) {
-      console.error("Fail when deleting word", error);
+      console.error("Fail when deleting word: ", error);
     }
   };
 
@@ -68,7 +69,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
       try {
         await db.runAsync("UPDATE word SET correct = correct + 1 WHERE id = ?", id )
       } catch (error) {
-        console.error("Fail when updating word's correct field")
+        console.error("Fail when updating word's correct field: ", error)
       }
     }
 
@@ -76,7 +77,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
       try {
         await db.runAsync("UPDATE word SET wrong = wrong + 1 WHERE id = ?", id)
       } catch (error) {
-        console.error("Fail when updating word's wrong field")
+        console.error("Fail when updating word's wrong field: ", error)
       }
     }
 
@@ -85,11 +86,16 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
   }
 
   const handleEditWord = async (item: TWord ) => {
-
+    try {
+      await db.runAsync("UPDATE word SET english = ?, finnish = ?, correct = ?, wrong = ? WHERE id = ?", [item.english, item.finnish, item.correct, item.wrong, item.id])
+    } catch (error) {
+      console.error("Fail when updating word's wrong field: ", error)
+    }
+    await getWordsFromDb()
   }
 
   return (
-      <WordsContext.Provider value={{words, saveToDb, handleDelete, handleCorrectOrWrong}}>
+      <WordsContext.Provider value={{words, saveToDb, handleDelete, handleCorrectOrWrong, handleEditWord}}>
         {children}
       </WordsContext.Provider>
   );

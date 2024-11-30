@@ -11,11 +11,12 @@ import { SymbolView } from "expo-symbols";
 import { Modal } from "@/components/Modal";
 import { useState } from "react";
 import EditWord from "@/components/EditWord";
+import { TWord } from "@/lib/types";
 
 export default function Words() {
   const { words, handleDelete } = useWords();
   const [modalOpen, setModalOpen] = useState(false);
-  const [text, setText] = useState("");
+  const [editWord, setEditWord] = useState<TWord | null>(null);
 
   return (
     <View style={styles.container}>
@@ -36,7 +37,10 @@ export default function Words() {
 
               <Pressable
                 style={styles.symbolPosition}
-                onPress={() => setModalOpen(true)}
+                onPress={() =>  {
+                  setModalOpen(true)
+                  setEditWord(item);
+                }}
               >
                 <SymbolView
                   name="square.and.pencil"
@@ -60,8 +64,8 @@ export default function Words() {
         )}
         data={words}
       />
-      <Modal isOpen={modalOpen} withInput>
-        <EditWord setModalOpen={setModalOpen} />
+      <Modal isOpen={modalOpen} withInput >
+        <EditWord setModalOpen={setModalOpen} word={editWord} />
       </Modal>
     </View>
   );
