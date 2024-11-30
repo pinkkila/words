@@ -1,7 +1,7 @@
 import { useWords } from "@/hooks/useWords";
 import { TWord } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Text, View, StyleSheet, Pressable, ActivityIndicator } from "react-native";
 
 export default function Game() {
   const { words, handleCorrectOrWrong } = useWords();
@@ -52,7 +52,7 @@ export default function Game() {
 
   return (
     <View style={styles.container}>
-      {!ownWordsPlay || ownWordsPlay.length === 0 ? (<Text>Loading...</Text>) : (
+      {!ownWordsPlay || ownWordsPlay.length === 0 ? (<ActivityIndicator size="large" color="#00ff00" />) : (
         <>
           <Text style={styles.text}>{correctWord?.english}</Text>
           <Pressable style={styles.pressBtn} onPress={() => checkIfCorrect(ownWordsPlay[0])}>

@@ -22,14 +22,21 @@ export default function Words() {
                 <Text style={styles.text}>Wrong: {item.wrong}</Text>
               </View>
 
-              <Text
-                style={styles.updateText}
+              <Pressable
+                style={styles.symbolPosition}
                 onPress={() => handleDelete(item.id)}
               >
-                Update
-              </Text>
+                <SymbolView
+                  name="square.and.pencil"
+                  style={styles.pencilSymbol}
+                  type="multicolor"
+                />
+              </Pressable>
 
-              <Pressable style={styles.deleteSymbolPosition} onPress={() => handleDelete(item.id)}>
+              <Pressable
+                style={styles.symbolPosition}
+                onPress={() => handleDelete(item.id)}
+              >
                 <SymbolView
                   name="trash"
                   style={styles.deleteSymbol}
@@ -75,10 +82,9 @@ const styles = StyleSheet.create({
   itemDetails: {
     marginTop: 5,
     flexDirection: "column",
-    justifyContent: "space-between",
   },
 
-  deleteSymbolPosition: {
+  symbolPosition: {
     alignSelf: "flex-end",
   },
 
@@ -101,5 +107,9 @@ const styles = StyleSheet.create({
   deleteSymbol: {
     width: 33,
     height: 33,
-  }
+  },
+  pencilSymbol: {
+    width: 33,
+    height: 33,
+  },
 });
