@@ -84,6 +84,10 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
 
   }
 
+  const handleEditWord = async (item: TWord ) => {
+
+  }
+
   return (
       <WordsContext.Provider value={{words, saveToDb, handleDelete, handleCorrectOrWrong}}>
         {children}
