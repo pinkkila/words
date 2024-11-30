@@ -1,12 +1,20 @@
 import { useWords } from "@/hooks/useWords";
 import { TWord } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Pressable, ActivityIndicator } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 
 export default function Game() {
   const { words, handleCorrectOrWrong } = useWords();
   const [ownWordsPlay, setOwnWordsPlay] = useState<TWord[] | null>([]);
   const [correctWord, setCorrectWord] = useState<TWord | null>(null);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [selectedWordId, setSelectedWordId] = useState<number | null>(null);
 
   useEffect(() => {
     prepareOneRound();
@@ -26,6 +34,8 @@ export default function Game() {
 
   const prepareOneRound = () => {
     if (!words) return;
+    setShowFeedback(false)
+    setSelectedWordId(null)
     const randomIndexes = getRandomIndexes(3);
     setCorrectWord(
       words[randomIndexes[Math.floor(Math.random() * randomIndexes.length)]]
@@ -34,6 +44,8 @@ export default function Game() {
   };
 
   const checkIfCorrect = (pressedWord: TWord) => {
+    setShowFeedback(true);
+    setSelectedWordId(pressedWord.id)
     if (pressedWord.english === correctWord?.english) {
       console.log("correct");
       handleCorrectOrWrong(pressedWord.id, 1);
@@ -41,23 +53,41 @@ export default function Game() {
       console.log("wrong");
       handleCorrectOrWrong(pressedWord.id, -1);
     }
-    prepareOneRound()
+    setTimeout(() => {
+      prepareOneRound();
+    }, 1500);
   };
+
+  const getBtnStyle = (id: number) => {
+    if (!showFeedback) return styles.basicBtn;
+
+    if (id === correctWord?.id) 
+      return styles.correct
+
+    if (id === selectedWordId && selectedWordId !== correctWord?.id)
+      return styles.wrong
+
+    return styles.basicBtn
+
+  }
 
   return (
     <View style={styles.container}>
-      {!ownWordsPlay || ownWordsPlay.length === 0 ? (<ActivityIndicator size="large" color="#00ff00" />) : (
+      {!ownWordsPlay || ownWordsPlay.length === 0 ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
         <>
-          <Text style={styles.text}>{correctWord?.english}</Text>
-          <Pressable style={styles.pressBtn} onPress={() => checkIfCorrect(ownWordsPlay[0])}>
-            <Text style={styles.text}>{ownWordsPlay[0].finnish}</Text>
-          </Pressable>
-          <Pressable style={styles.pressBtn} onPress={() => checkIfCorrect(ownWordsPlay[1])}>
-            <Text style={styles.text}>{ownWordsPlay[1].finnish}</Text>
-          </Pressable>
-          <Pressable style={styles.pressBtn} onPress={() => checkIfCorrect(ownWordsPlay[2])}>
-            <Text style={styles.text}>{ownWordsPlay[2].finnish}</Text>
-          </Pressable>
+          <Text style={styles.textBig}>{correctWord?.english}</Text>
+          {ownWordsPlay.map((word) => (
+            <Pressable
+              key={word.id}
+              style={() => getBtnStyle(word.id)}
+              onPress={() => checkIfCorrect(word)}
+              disabled={showFeedback}
+            >
+              <Text style={styles.text}>{word.finnish}</Text>
+            </Pressable>
+          ))}
         </>
       )}
     </View>
@@ -70,18 +100,45 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  textBig: {
+    fontSize: 40,
+    fontWeight: "600",
+    color: "white",
+    marginBottom: 40
+  },
   text: {
     fontSize: 20,
-    lineHeight: 24,
     fontWeight: "600",
     color: "white",
   },
-  pressBtn: {
+  basicBtn: {
     borderRadius: 20,
     margin: 30,
     padding: 20,
     height: 80,
     width: 200,
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "grey",
+  },
+  correct: {
+    borderRadius: 20,
+    margin: 30,
+    padding: 20,
+    height: 80,
+    width: 200,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "green",
+  },
+  wrong: {
+    borderRadius: 20,
+    margin: 30,
+    padding: 20,
+    height: 80,
+    width: 200,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "red",
   },
 });
