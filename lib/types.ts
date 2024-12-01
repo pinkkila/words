@@ -5,3 +5,8 @@ export type TWord = {
   correct: number;
   wrong: number;
 };
+
+export type TGptWordsPlay = {
+  id: number;
+  finnish: string
+}

@@ -11,15 +11,12 @@ const openai = new OpenAI({
   apiKey: openAiApiKey,
 });
 
-export async function generateWordOptions(word: string): Promise<{ correct: string; wrong: string[] }> {
+export async function generateWordOptions(word: string) {
   try {
     const prompt = `
-      Given the word "${word}", generate one correct translation in Finnish and two incorrect translations in Finnish. 
-      Return the data in the following JSON format:
-      {
-        "correct": "<correct translation>",
-        "wrong": ["<wrong translation 1>", "<wrong translation 2>"]
-      }.
+      Given the word "${word}", generate one correct translation in Finnish and two completey incorrect translations in Finnish. 
+      Return the data in the following format:
+        <correct translation>,<wrong translation>,<wrong translation>
     `;
 
     const completion = await openai.chat.completions.create({
@@ -31,12 +28,10 @@ export async function generateWordOptions(word: string): Promise<{ correct: stri
     });
 
     const response = completion.choices[0].message?.content;
+
+    console.log(response)
     if (response) {
-      const data = JSON.parse(response);
-      return {
-        correct: data.correct,
-        wrong: data.wrong,
-      };
+      return response ;
     } else {
       throw new Error("Invalid response from OpenAI");
     }
