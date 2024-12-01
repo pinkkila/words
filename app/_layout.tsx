@@ -16,7 +16,7 @@ export default function RootLayout() {
       <WordsContextProvider>
         <Stack>
           <Stack.Screen name="index" options={{ headerTitle: "" }} />
-          <Stack.Screen name="game" options={{ headerTitle: "" }} />
+          <Stack.Screen name="games/index" options={{ headerTitle: "" }} />
           <Stack.Screen
             name="settings/index"
             options={{ headerTitle: "Settings" }}

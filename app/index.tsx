@@ -7,7 +7,7 @@ export default function Index() {
   const { words } = useWords();
 
   const navigateGame = () => {
-    router.push("/game");
+    router.push("/games");
   };
   const navigateSettings = () => {
     router.push("/settings");
