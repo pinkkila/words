@@ -1,16 +1,9 @@
-import { Text, StyleSheet } from "react-native";
+import Game from "@/components/OwnWordsGame";
 
 export default function Index() {
   return(
-    <Text style={styles.text} >valitse game</Text>
+    <>
+      <Game />
+    </>
   )
 }
-
-const styles = StyleSheet.create({
-text: {
-  textAlign: "center",
-  fontSize: 30,
-  fontWeight: "700",
-  color: "white",
-},
-})
