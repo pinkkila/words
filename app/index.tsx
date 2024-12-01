@@ -22,7 +22,7 @@ export default function Index() {
         <Text style={styles.text}>You don't have enough words. Please import some words.</Text>
       ) : (
         <Pressable
-          style={styles.pressBtn}
+          style={({pressed}) => [styles.pressBtn, pressed && {opacity: 0.8, backgroundColor: "lightskyblue"}]}
           onPress={navigateGame}
           disabled={!words}
         >

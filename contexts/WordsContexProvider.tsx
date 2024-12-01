@@ -72,7 +72,6 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
         console.error("Fail when updating word's correct field: ", error)
       }
     }
-
     if (delta === -1) {
       try {
         await db.runAsync("UPDATE word SET wrong = wrong + 1 WHERE id = ?", id)
@@ -80,9 +79,7 @@ export default function WordsContextProvider({ children }: {children: ReactNode}
         console.error("Fail when updating word's wrong field: ", error)
       }
     }
-
     await getWordsFromDb()
-
   }
 
   const handleEditWord = async (item: TWord ) => {

@@ -27,13 +27,11 @@ export default function Words() {
               <Text style={styles.wordText}>{item.english}</Text>
               <Text style={styles.wordText}>{item.finnish}</Text>
             </View>
-
             <View style={styles.itemBottom}>
               <View style={styles.itemDetails}>
                 <Text style={styles.text}>Correct: {item.correct}</Text>
                 <Text style={styles.text}>Wrong: {item.wrong}</Text>
               </View>
-
               <Pressable
                 style={styles.symbolPosition}
                 onPress={() =>  {
@@ -47,7 +45,6 @@ export default function Words() {
                   type="multicolor"
                 />
               </Pressable>
-
               <Pressable
                 style={styles.symbolPosition}
                 onPress={() => handleDelete(item.id)}

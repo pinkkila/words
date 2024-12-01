@@ -14,12 +14,10 @@ export default function Index() {
   const importCsv = async () => {
     try {
       const docRes = await DocumentPicker.getDocumentAsync();
-
       if (docRes.canceled) {
         console.log("File import was cancelled");
         return;
       }
-
       const fileUri = docRes.assets[0].uri;
       const fileData = await FileSystem.readAsStringAsync(fileUri, {
         encoding: FileSystem.EncodingType.UTF8,
