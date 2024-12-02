@@ -20,16 +20,6 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.gptContainer}>
-        <Text style={styles.textGpt}>ChatGPT</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#00f7ff" }}
-          thumbColor={gptEnabled ? "black" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={gptEnabled}
-        />
-      </View>
       <Pressable style={styles.pressSymbol} onPress={navigateSettings}>
         <SymbolView name="gear" style={styles.symbol} type="multicolor" />
       </Pressable>
@@ -40,7 +30,7 @@ export default function Index() {
       ) : (
         <Pressable
           style={({ pressed }) => [
-            styles.pressBtn,
+            styles.btn,
             pressed && { opacity: 0.9, backgroundColor: "#009cb3" },
           ]}
           onPress={navigateGame}
@@ -69,22 +59,7 @@ const styles = StyleSheet.create({
     height: 60,
     margin: 5,
   },
-  gptContainer: {
-    position: "absolute",
-    top: 23,
-    left: 10,
-    flexDirection: "row",
-    margin: 10,
-    alignItems: "center",
-  },
-  textGpt: {
-    textAlign: "center",
-    fontSize: 25,
-    fontWeight: "700",
-    color: "white",
-    marginRight: 20,
-  },
-  pressBtn: {
+  btn: {
     borderRadius: 20,
     margin: 30,
     padding: 20,

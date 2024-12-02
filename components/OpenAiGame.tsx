@@ -98,13 +98,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textBig: {
-    fontSize: 40,
+    fontSize: 45,
     fontWeight: "600",
     color: "white",
     marginBottom: 40,
   },
   text: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "600",
     color: "white",
   },
@@ -132,9 +132,9 @@ const styles = StyleSheet.create({
     width: 200,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#0f0",
+    backgroundColor: "#3bd13b",
     shadowColor: "#00ff00",
-    shadowRadius: 15,
+    shadowRadius: 3,
     shadowOpacity: 1,
   },
   wrong: {
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#f00",
     shadowColor: "#ff0000",
-    shadowRadius: 15,
+    shadowRadius: 3,
     shadowOpacity: 1,
   },
 });
