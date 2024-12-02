@@ -20,9 +20,20 @@ export default function Index() {
         <SymbolView name="gear" style={styles.symbol} type="multicolor" />
       </Pressable>
       {!words || words.length < 4 ? (
-        <Text style={styles.text}>
-          You don't have enough words. Please import some words.
-        </Text>
+        <>
+          <Text style={styles.text}>
+            You don't have enough words. Please import some words.
+          </Text>
+          <Text style={styles.textInfo}>
+            ( Press{" "}
+            <SymbolView
+              name="gear"
+              style={styles.symbolInfo}
+              type="multicolor"
+            />{" "}
+            and then import )
+          </Text>
+        </>
       ) : (
         <Pressable
           style={({ pressed }) => [
@@ -76,5 +87,16 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     color: "white",
+  },
+  textInfo: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "700",
+    color: "white",
+    marginTop: 10,
+  },
+  symbolInfo: {
+    width: 20,
+    height: 20,
   },
 });
