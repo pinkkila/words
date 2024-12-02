@@ -17,7 +17,7 @@
 3. Optional: You need an OpenAI API key to use the GPT version of the game.
 
 
-This app is built with: 
+This app is built using: 
 * SQLite database
 * OpenAI API
 * Expo Router
@@ -25,3 +25,9 @@ This app is built with:
 * Expo FileSystem
 * SF Symbols
 
+This app is designed for iOS, so it might not work as expected on Android.
+
+The app includes a "joke" in its styling: the normal game looks dull, but when ChatGPT is enabled, it appears more modern—even though the gaming experience is actually worse with the GPT version.
+
+![alt text](assets/images/normal-game-view.png)
+![alt text](assets/images/gpt-game-view.png)
