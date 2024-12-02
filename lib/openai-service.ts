@@ -28,8 +28,6 @@ export async function generateWordOptions(word: string) {
     });
 
     const response = completion.choices[0].message?.content;
-
-    console.log(response)
     if (response) {
       return response ;
     } else {
