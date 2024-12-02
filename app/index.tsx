@@ -1,4 +1,4 @@
-import { View, StyleSheet, Pressable, Text, Switch } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import { router } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useWords } from "@/hooks/useWords";
