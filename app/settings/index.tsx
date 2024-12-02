@@ -34,20 +34,22 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.gptContainer}>
-        <Text style={styles.textGpt}>ChatGPT</Text>
-        <Switch
-          trackColor={{ false: "#767577", true: "#81b0ff" }}
-          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
-        />
-      </View>
-      <Pressable style={styles.pressBtn} onPress={navigateWords}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.pressBtn,
+          pressed && { opacity: 0.9, backgroundColor: "#009cb3" },
+        ]}
+        onPress={navigateWords}
+      >
         <Text style={styles.text}>Your Words</Text>
       </Pressable>
-      <Pressable style={styles.pressBtn} onPress={importCsv}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.pressBtn,
+          pressed && { opacity: 0.9, backgroundColor: "#009cb3" },
+        ]}
+        onPress={importCsv}
+      >
         <Text style={styles.text}>Import</Text>
       </Pressable>
     </View>
@@ -92,6 +94,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "700",
     color: "white",
-    marginRight: 30
+    marginRight: 30,
   },
 });

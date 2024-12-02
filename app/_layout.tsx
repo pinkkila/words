@@ -10,7 +10,6 @@ import WordsContextProvider from "@/contexts/WordsContexProvider";
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <WordsContextProvider>

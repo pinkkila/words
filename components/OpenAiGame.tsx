@@ -71,7 +71,7 @@ export default function OpenAiGame() {
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator size="large" color="#00ff00" />
+        <ActivityIndicator size="large" color="#00f7ff" />
       ) : (
         <>
           <Text style={styles.textBig}>{wordForPlay?.english}</Text>
@@ -113,10 +113,16 @@ const styles = StyleSheet.create({
     margin: 30,
     padding: 20,
     height: 80,
-    width: 200,
+    width: 220,
+    backgroundColor: "#1e1e1e",
+    borderWidth: 2,
+    borderColor: "#00f7ff",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "grey",
+    shadowColor: "#00f7ff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.7,
+    shadowRadius: 10,
   },
   correct: {
     borderRadius: 20,
@@ -126,7 +132,10 @@ const styles = StyleSheet.create({
     width: 200,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
+    backgroundColor: "#0f0",
+    shadowColor: "#00ff00",
+    shadowRadius: 15,
+    shadowOpacity: 1,
   },
   wrong: {
     borderRadius: 20,
@@ -136,14 +145,9 @@ const styles = StyleSheet.create({
     width: 200,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "red",
-  },
-
-  pressBtn: {
-    borderRadius: 20,
-    padding: 20,
-    height: 80,
-    width: 200,
-    backgroundColor: "grey",
+    backgroundColor: "#f00",
+    shadowColor: "#ff0000",
+    shadowRadius: 15,
+    shadowOpacity: 1,
   },
 });
