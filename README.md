@@ -13,4 +13,4 @@
     npx expo start
    ```
 
-3. You need OpenAi API key if you wanna use GPT-version of the game.
+Optional: You need an OpenAI API key to use the GPT version of the game.
