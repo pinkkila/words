@@ -2,7 +2,13 @@ import { useWords } from "@/hooks/useWords";
 import { generateWordOptions } from "@/lib/openai-service";
 import { TGptWordsPlay, TWord } from "@/lib/types";
 import { useEffect, useState } from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 
 export default function OpenAiGame() {
   const { words, handleCorrectOrWrong } = useWords();
@@ -11,26 +17,31 @@ export default function OpenAiGame() {
   const [gptWordsPlay, setGptWordsPlay] = useState<TGptWordsPlay[] | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [selectedWordId, setSelectedWordId] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     prepareOneRound();
   }, []);
 
   const prepareOneRound = async () => {
+    setIsLoading(true);
     if (!words) return;
     setShowFeedback(false);
     setSelectedWordId(null);
 
-    const randomlySelectedWord = words[Math.floor(Math.random() * words.length)]
+    const randomlySelectedWord =
+      words[Math.floor(Math.random() * words.length)];
     setWordForPlay(randomlySelectedWord);
     const gptResponse = await generateWordOptions(randomlySelectedWord.english);
 
-    const gptWords = gptResponse.split(",").map((w, index) => ({id: index, finnish: w}))
+    const gptWords = gptResponse
+      .split(",")
+      .map((w, index) => ({ id: index, finnish: w }));
     setCorrectId(gptWords[0].id);
 
     const shuffle = gptWords.sort(() => Math.random() - 0.5);
     setGptWordsPlay(shuffle);
-
+    setIsLoading(false);
   };
 
   const checkIfCorrect = (id: number) => {
@@ -59,18 +70,23 @@ export default function OpenAiGame() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textBig}>{wordForPlay?.english}</Text>
-      {gptWordsPlay?.map((word) => (
-        <Pressable
-          key={word.id}
-          style={() => getBtnStyle(word.id)}
-          onPress={() => checkIfCorrect(word.id)}
-          disabled={showFeedback}
-        >
-          <Text style={styles.text}>{word.finnish}</Text>
-        </Pressable>
-      ))}
-
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
+        <>
+          <Text style={styles.textBig}>{wordForPlay?.english}</Text>
+          {gptWordsPlay?.map((word) => (
+            <Pressable
+              key={word.id}
+              style={() => getBtnStyle(word.id)}
+              onPress={() => checkIfCorrect(word.id)}
+              disabled={showFeedback}
+            >
+              <Text style={styles.text}>{word.finnish}</Text>
+            </Pressable>
+          ))}
+        </>
+      )}
     </View>
   );
 }

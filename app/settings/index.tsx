@@ -1,11 +1,14 @@
-import { View, StyleSheet, Pressable, Text } from "react-native";
+import { View, StyleSheet, Pressable, Text, Switch } from "react-native";
 import { router } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 import { useWords } from "@/hooks/useWords";
+import { useState } from "react";
 
 export default function Index() {
-  const {saveToDb} = useWords();
+  const { saveToDb } = useWords();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const navigateWords = () => {
     router.push("/settings/words");
@@ -31,6 +34,16 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.gptContainer}>
+        <Text style={styles.textGpt}>ChatGPT</Text>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
       <Pressable style={styles.pressBtn} onPress={navigateWords}>
         <Text style={styles.text}>Your Words</Text>
       </Pressable>
@@ -47,23 +60,38 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  pressSymbol: {
-    position: "absolute",
-    top: 10,
-    right: 10,
+  gptContainer: {
+    flexDirection: "row",
+    margin: 10,
+    alignItems: "center",
   },
   pressBtn: {
     borderRadius: 20,
     margin: 30,
     padding: 20,
     height: 80,
-    width: 200,
-    backgroundColor: "grey",
+    width: 220,
+    backgroundColor: "#1e1e1e",
+    borderWidth: 2,
+    borderColor: "#00f7ff",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#00f7ff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.7,
+    shadowRadius: 10,
   },
   text: {
     textAlign: "center",
     fontSize: 30,
     fontWeight: "700",
     color: "white",
+  },
+  textGpt: {
+    textAlign: "center",
+    fontSize: 30,
+    fontWeight: "700",
+    color: "white",
+    marginRight: 30
   },
 });
