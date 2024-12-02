@@ -45,12 +45,13 @@ export default function OpenAiGame() {
   };
 
   const checkIfCorrect = (id: number) => {
+    if (!wordForPlay) return;
     setShowFeedback(true);
     setSelectedWordId(id);
     if (id === correctId) {
-      handleCorrectOrWrong(id, 1);
+      handleCorrectOrWrong(wordForPlay.id, 1);
     } else {
-      handleCorrectOrWrong(id, -1);
+      handleCorrectOrWrong(wordForPlay.id, -1);
     }
     setTimeout(() => {
       prepareOneRound();

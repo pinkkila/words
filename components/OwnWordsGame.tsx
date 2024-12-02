@@ -43,12 +43,13 @@ export default function Game() {
   };
 
   const checkIfCorrect = (id: number) => {
+    if (!correctWord) return;
     setShowFeedback(true);
     setSelectedWordId(id);
     if (id === correctWord?.id) {
-      handleCorrectOrWrong(id, 1);
+      handleCorrectOrWrong(correctWord.id, 1);
     } else {
-      handleCorrectOrWrong(id, -1);
+      handleCorrectOrWrong(correctWord?.id, -1);
     }
     setTimeout(() => {
       prepareOneRound();

@@ -1,14 +1,11 @@
-import { View, StyleSheet, Pressable, Text, Switch } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 import { router } from "expo-router";
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 import { useWords } from "@/hooks/useWords";
-import { useState } from "react";
 
 export default function Index() {
   const { saveToDb } = useWords();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const navigateWords = () => {
     router.push("/settings/words");
