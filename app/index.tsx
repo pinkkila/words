@@ -2,13 +2,9 @@ import { View, StyleSheet, Pressable, Text, Switch } from "react-native";
 import { router } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useWords } from "@/hooks/useWords";
-import { useState } from "react";
 
 export default function Index() {
   const { words } = useWords();
-  const [gptEnabled, setGptEnabled] = useState(false);
-
-  const toggleSwitch = () => setGptEnabled((previousState) => !previousState);
 
   const navigateGame = () => {
     router.push("/games");
