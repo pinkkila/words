@@ -14,4 +14,14 @@
    ```
 
 
-3. You need an OpenAI API key to use the GPT version of the game.
+3. Optional: You need an OpenAI API key to use the GPT version of the game.
+
+
+This app is build with: 
+* Sqlite database
+* OpenAI Api
+* Expo Router
+* Expo DocumentPicker
+* Expo FileSystem
+* SF-symbols
+
