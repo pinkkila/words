@@ -1,3 +1,8 @@
+# words – Learn Words
+
+A small React Native app for practicing vocabulary in a simple game-like way.
+
+You can download word lists to study, or import your Google Translate favorites by saving them and converting to CSV. Translations can be from your own list, or you can use the optional ChatGPT feature to generate them.
 
 ## Get started
 
